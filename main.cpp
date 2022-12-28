@@ -1,4 +1,6 @@
 ﻿#include <Novice.h>
+#include "Mapchip.h"
+
 
 const char kWindowTitle[] = "GC1A_24_ワタナベシドウ";
 
@@ -12,6 +14,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
+	Mapchip* mapchip = new Mapchip();
+	
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -24,7 +29,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-
+		mapchip->Judgement();
+		mapchip->Update(keys, preKeys);
 		///
 		/// ↑更新処理ここまで
 		///
@@ -32,7 +38,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-
+		mapchip->Draw(keys, preKeys);
 		///
 		/// ↑描画処理ここまで
 		///
