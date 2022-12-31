@@ -29,5 +29,6 @@ private:
 	float tween_;
 	float posX_[5];
 	float delaytime_;
+	int color_;
 };
 

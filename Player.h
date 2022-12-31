@@ -10,7 +10,9 @@ public:
 	Player();
 	int jumpflag_;
 	int inventoryflag_;
+	void Reset();
 private:
 	int speed_;
+	int menutimer_;
 };
 

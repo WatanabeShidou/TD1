@@ -6,23 +6,35 @@
 Easing::Easing()
 {
 	tranceform_.x = 300;
-	tranceform_.y = 300;
+	tranceform_.y = 350;
 	
 	start_ = 0;
 	difference_ = 0.8;
 	tween_ = 8;
 	for (int x = 0; x < 5; x++) {
-		posX_[x] = -10;
+		posX_[x] = -50;
 		time_[x] = 0;
 	}
 	delaytime_ = 0;
-	player_.inventoryflag_ = 1;
+	player_.inventoryflag_ = 0;
+	color_ = 0x00000000;
 }
 
 void Easing::Draw(char* keys, char* preKeys)
 {
-	player_.Update(keys, preKeys);
+	//仮メニュー
+	if (keys[DIK_E] && player_.inventoryflag_ == 0) {
+		player_.inventoryflag_ = 1;
+	}
+	if (keys[DIK_E] && player_.inventoryflag_ == 2) {
+		player_.inventoryflag_ = 3;
+	}
+	
 	if (player_.inventoryflag_ == 1) {
+		if (delaytime_ <= 0.150) {
+			color_ += 1;
+		}
+		
 		if (delaytime_ <= 0.150) {
 			delaytime_ += 0.001;
 		}
@@ -73,6 +85,7 @@ void Easing::Draw(char* keys, char* preKeys)
 	if (player_.inventoryflag_ == 3) {
 		if (delaytime_ <= 0.150) {
 			delaytime_ += 0.001;
+			color_ -= 1;
 		}
 		if (time_[0] <= 1.0) {
 			time_[0] += 0.003;
@@ -109,11 +122,12 @@ void Easing::Draw(char* keys, char* preKeys)
 				time_[3] += 0.003;
 			}
 			if (posX_[0] == posX_[3]) {
+				
 				player_.inventoryflag_ = 0;
 				delaytime_ = 0;
 				for (int x = 0; x < 5; x++) {
 					time_[x] = 0;
-					posX_[x] = -10;
+					posX_[x] = -50;
 				}
 			}
 			else {
@@ -121,13 +135,14 @@ void Easing::Draw(char* keys, char* preKeys)
 			}
 		}
 	}
-
+	//背景
+	if (player_.inventoryflag_ != 0) {
+		Novice::DrawBox(0, 0, 1056, 576, 0.0f, color_, kFillModeSolid);
+	}
+	//アイコン
 	Novice::DrawSprite(posX_[0], tranceform_.y, easing_, 1, 1, 0.0f, WHITE);
 	Novice::DrawSprite(posX_[1], tranceform_.y+50, easing_, 1, 1, 0.0f, WHITE);
 	Novice::DrawSprite(posX_[2], tranceform_.y+100, easing_, 1, 1, 0.0f, WHITE);
 	Novice::DrawSprite(posX_[3], tranceform_.y+150, easing_, 1, 1, 0.0f, WHITE);
-	
-	Novice::ScreenPrintf(0, 60, "%f", start_);
 	Novice::ScreenPrintf(0, 80, "%d", player_.inventoryflag_);
-	
 }

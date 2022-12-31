@@ -8,7 +8,7 @@ const char kWindowTitle[] = "GC1A_24_ワタナベシドウ";
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, 1056, 576);
 
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
@@ -31,6 +31,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		mapchip->Judgement();
 		mapchip->Update(keys, preKeys);
+		
 		///
 		/// ↑更新処理ここまで
 		///
